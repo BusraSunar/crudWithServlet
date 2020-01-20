@@ -24,12 +24,13 @@ public class addDataServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		//get inputs from the input boxes 
 		String name= request.getParameter("name");
 		String email = request.getParameter("email");
 		Connection conn =null;
 		PreparedStatement ps = null;
 		try{
+			//connect to database 
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			if(name!=null && email!=null){
 				conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3308/idk?autoReconnect=true&useSSL=false", "root", "");
