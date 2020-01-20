@@ -33,7 +33,7 @@ public class beforeEditServlet extends HttpServlet {
            		Statement st=(Statement) con.createStatement();
           
 			/*my object is to compare two sets if they are different than each other copy the arrays to resultsets
-			i will compare data and list, data is a list thats filled from teh database, list is from the inputs so 
+			i will compare data and list, data is a list thats filled from the database, list is from the inputs so 
 			when i compare list and data i will see the difference between them and assign list to data 
 			*/
 			
