@@ -24,24 +24,28 @@ public class editServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			try{
+				//connect to database
+				Class.forName("com.mysql.jdbc.Driver");
+	            		Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3308/idk?autoReconnect=true&useSSL=false", "root", "");	
+	            		
+				//get the id thats going to be edited
+	            		HttpSession session = request.getSession();
+	            		String data = (String) session.getAttribute("editData");
+				String id2 = data;
 				
-			    Class.forName("com.mysql.jdbc.Driver");
-	            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3308/idk?autoReconnect=true&useSSL=false", "root", "");	
-	            
-	            HttpSession session = request.getSession();
-	            String data = (String) session.getAttribute("editData");
-	      		String id2 = data;
-	      	  	String name = request.getParameter("name");
-	      		String email = request.getParameter("email");
-	      		
-	      		PreparedStatement stmt=null;
-      			String update="UPDATE smth SET name=?, email=? WHERE id='" +id2 +"'";
-      			stmt = (PreparedStatement) con.prepareStatement(update);
-      			stmt.setString(1,name);
-      			stmt.setString(2,email);
-      			stmt.executeUpdate();
-      			response.sendRedirect("searchServlet");
-   
+				//get the inputs name and email
+				String name = request.getParameter("name");
+				String email = request.getParameter("email");
+	      			
+				//update database 
+				PreparedStatement stmt=null;
+				String update="UPDATE smth SET name=?, email=? WHERE id='" +id2 +"'";
+				stmt = (PreparedStatement) con.prepareStatement(update);
+				stmt.setString(1,name);
+				stmt.setString(2,email);
+				stmt.executeUpdate();
+				response.sendRedirect("searchServlet");
+
 			}
 			catch(Exception e){}
 		
