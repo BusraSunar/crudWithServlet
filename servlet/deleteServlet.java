@@ -20,13 +20,17 @@ public class deleteServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//get the id of the chosen input
 		String idStr = request.getParameter("id");
 		int id = Integer.parseInt(idStr);
 		
 		try{
+			//connect to database
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3308/idk?autoReconnect=true&useSSL=false", "root", "");
 			Statement stat=(Statement) conn.createStatement();
+			
+			//delete the given id from the database
 			String sql= "DELETE FROM smth WHERE id='" +id + "'" ;
 			stat.executeUpdate(sql);
 			response.sendRedirect("searchServlet");
