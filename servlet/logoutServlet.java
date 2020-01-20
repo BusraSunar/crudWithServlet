@@ -12,10 +12,11 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/logoutServlet")
 public class logoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	public logoutServlet() {
         super();
 
-    }
+    	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//set the variable that controls the login/logout to false
