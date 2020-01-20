@@ -18,6 +18,7 @@ public class logoutServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//set the variable that controls the login/logout to false
 		request.getSession().setAttribute("loginYapildi", false);
 		request.getRequestDispatcher("index.jsp").include(request, response);  
          
