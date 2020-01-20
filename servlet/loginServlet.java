@@ -27,15 +27,21 @@ public class loginServlet extends HttpServlet {
 		 try{
 			 response.setContentType("text/html;charset=UTF-8");
 			 PrintWriter out = response.getWriter();
+			 
+			 //create a variable to control login/logout
 			 request.getSession().setAttribute("loginYapildi", false);
 
 			 Boolean valid=true;
+			 
+			 //get inputs from the input box
 			 String name= request.getParameter("name");
 			 String email = request.getParameter("email");
 	
+			 //connect to database
 			 Class.forName("com.mysql.jdbc.Driver").newInstance();
 			 Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3308/idk?autoReconnect=true&useSSL=false", "root", "");
 	
+			 //look if the name and email are valid or not
 			 String stmt = "SELECT * From smth where name = ? and email = ?";
 			 PreparedStatement pstmt = (PreparedStatement) conn.prepareStatement(stmt);
 			 pstmt.setString(1, name); 
@@ -44,14 +50,14 @@ public class loginServlet extends HttpServlet {
 			 if(!rs.next()){
 				 valid = false;
 			 }
-			 if(valid==false) {
-					request.getSession().setAttribute("loginYapildi",false);
+			 if(valid==false) {//if the given inputs are invalid show an error page and redirect to login page
+				   request.getSession().setAttribute("loginYapildi",false);
 				   out.println("<meta http-equiv='refresh' content='2;URL=index.jsp'>");//redirects after 3 seconds
 				   out.println("<p style='color:red;'>Name or email incorrect!</p>");
 					
 
 				   
-			 }else {
+			 }else {//if the given inputs are valid then redirect to table.jsp
 				 request.getSession().setAttribute("loginYapildi", true);
 				 response.sendRedirect("searchServlet");
 			 }
